@@ -20,7 +20,7 @@ export default function ColorDisplay({ color, revealed }: Props) {
                     {color.hex}
                 </p>
             ) : (
-                <p className="text-gray-400 text-sm">この色は何番？</p>
+                <p className="text-gray-400 text-sm">この色を16進数のカラーコードで入力してみてください。</p>
             )}
         </div>
     );

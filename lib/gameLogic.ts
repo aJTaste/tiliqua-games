@@ -90,10 +90,10 @@ export function getRank(diff: number): {
     label: string;
     color: string;
 } {
-    if (diff <= 2) return { label: "🎯 Perfect!", color: "#22c55e" };
-    if (diff <= 5) return { label: "✨ Excellent!", color: "#84cc16" };
-    if (diff <= 10) return { label: "👍 Great!", color: "#eab308" };
-    if (diff <= 20) return { label: "🙂 Good", color: "#f97316" };
-    if (diff <= 35) return { label: "😅 Close...", color: "#ef4444" };
-    return { label: "❌ Miss", color: "#dc2626" };
+    if (diff <= 2) return { label: "非常に素晴らしい結果です。", color: "#22c55e" };
+    if (diff <= 5) return { label: "素晴らしい結果です。", color: "#84cc16" };
+    if (diff <= 10) return { label: "良い結果です。", color: "#eab308" };
+    if (diff <= 20) return { label: "悪くない結果です。", color: "#f97316" };
+    if (diff <= 35) return { label: "少し離れています。", color: "#ef4444" };
+    return { label: "かけ離れています。", color: "#dc2626" };
 }

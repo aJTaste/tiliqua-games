@@ -79,7 +79,7 @@ export default function HexInput({ onSubmit, disabled }: Props) {
           transition-all duration-150
         "
             >
-                答える
+                回答
             </button>
             <p className="text-xs text-gray-500">例: FF5733 または #FF5733</p>
         </form>

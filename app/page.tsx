@@ -84,9 +84,6 @@ export default function HomePage() {
 
   return (
     <main className="min-h-screen bg-gray-950 text-white flex flex-col items-center justify-center p-6 gap-8">
-      <h1 className="text-3xl font-bold tracking-tight text-white">
-        🎨 Color Hex Quiz
-      </h1>
 
       <ColorDisplay color={state.currentColor} revealed={revealed} />
 

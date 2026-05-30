@@ -101,7 +101,7 @@ export default function ScoreBoard({
                     className="w-full px-8 py-3 rounded-xl text-white font-bold text-lg
             bg-gray-700 hover:bg-gray-600 active:scale-95 transition-all"
                 >
-                    次の色へ →
+                    次に進む →
                 </button>
             )}
         </div>
