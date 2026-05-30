@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { GameState } from "@/lib/types";
 import { generateRandomColor, evaluateAnswer } from "@/lib/gameLogic";
 import ColorDisplay from "@/components/ColorDisplay";
@@ -8,6 +8,8 @@ import HexInput from "@/components/HexInput";
 import ScoreBoard from "@/components/ScoreBoard";
 
 const MAX_ROUNDS = 5;
+
+const PLACEHOLDER_COLOR = { hex: "#000000", r: 0, g: 0, b: 0 };
 
 function createInitialState(): GameState {
   return {
@@ -22,12 +24,26 @@ function createInitialState(): GameState {
 }
 
 export default function HomePage() {
-  const [state, setState] = useState<GameState>(createInitialState);
+  const [state, setState] = useState<GameState>({
+    phase: "playing",
+    currentColor: PLACEHOLDER_COLOR,
+    userInput: "",
+    score: 0,
+    round: 1,
+    maxRounds: MAX_ROUNDS,
+    lastResult: null,
+  });
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setState(createInitialState());
+    setMounted(true);
+  }, []);
 
   const handleAnswer = useCallback(
     (input: string) => {
       const result = evaluateAnswer(input, state.currentColor);
-      setState((prev) => ({
+      setState((prev: GameState) => ({
         ...prev,
         phase: result.correct ? "correct" : "wrong",
         userInput: input,
@@ -39,7 +55,7 @@ export default function HomePage() {
   );
 
   const handleNext = useCallback(() => {
-    setState((prev) => {
+    setState((prev: GameState) => {
       const nextRound = prev.round + 1;
       if (nextRound > MAX_ROUNDS) {
         return { ...prev, phase: "gameover" };
@@ -63,6 +79,8 @@ export default function HomePage() {
     state.phase === "correct" ||
     state.phase === "wrong" ||
     state.phase === "gameover";
+
+  if (!mounted) return null;
 
   return (
     <main className="min-h-screen bg-gray-950 text-white flex flex-col items-center justify-center p-6 gap-8">
