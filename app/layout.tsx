@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Color Hex Quiz",
-  description: "表示された色のHEXコードを当てるゲーム",
+  title: "Hex Color",
+  description: "表示された色のHEXカラーコードを当てるゲーム。",
 };
 
 export default function RootLayout({
