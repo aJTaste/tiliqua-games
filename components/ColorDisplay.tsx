@@ -4,24 +4,35 @@ import { Color } from "@/lib/types";
 
 interface Props {
     color: Color;
-    revealed: boolean; // 正解後はHEXを表示
+    revealed: boolean;
 }
 
 export default function ColorDisplay({ color, revealed }: Props) {
     return (
-        <div className="flex flex-col items-center gap-4">
-            <div
-                className="w-64 h-64 rounded-2xl shadow-2xl transition-all duration-500"
-                style={{ backgroundColor: color.hex }}
-                aria-label={revealed ? `Color: ${color.hex}` : "Guess this color"}
-            />
-            {revealed ? (
-                <p className="text-2xl font-mono font-bold tracking-widest text-white drop-shadow">
-                    {color.hex}
-                </p>
-            ) : (
-                <p className="text-gray-400 text-sm">この色を16進数のカラーコードで入力してみてください。</p>
-            )}
+        <div className="flex flex-col items-center gap-6">
+            {/* 色見本 */}
+            <div className="relative">
+                <div
+                    style={{ backgroundColor: color.hex }}
+                    className="w-52 h-52"
+                    aria-label={revealed ? `正解の色: ${color.hex}` : "この色のHEXコードは？"}
+                />
+                {/* 細い枠線 */}
+                <div className="absolute inset-0 border border-black/8 pointer-events-none" />
+            </div>
+
+            {/* HEXコード表示 */}
+            <div className="h-8 flex items-center justify-center">
+                {revealed ? (
+                    <span className="font-mono-game text-xl font-light tracking-[0.2em] text-[#1a1a1a]">
+                        {color.hex.toUpperCase()}
+                    </span>
+                ) : (
+                    <span className="text-xs tracking-[0.3em] text-[#999] uppercase">
+                        色番号を入力してください
+                    </span>
+                )}
+            </div>
         </div>
     );
 }

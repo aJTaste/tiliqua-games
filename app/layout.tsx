@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Hex Color",
-  description: "表示された色のHEXカラーコードを当てるゲーム。",
+  title: "色番号判定",
+  description: "表示された色のHEXカラーコードを当てる、色彩識別トレーニング。",
 };
 
 export default function RootLayout({
