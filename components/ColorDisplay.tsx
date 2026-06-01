@@ -29,7 +29,7 @@ export default function ColorDisplay({ color, revealed }: Props) {
                     </span>
                 ) : (
                     <span className="text-xs tracking-[0.3em] text-[#999] uppercase">
-                        色番号を入力してください
+                        カラーコードを入力しましょう
                     </span>
                 )}
             </div>

@@ -45,7 +45,7 @@ export function evaluateAnswer(
     };
 }
 
-/** 入力を正規化: "#FF5733" or "FF5733" → "#FF5733" */
+/** 入力を正規化: "#F8F9FA" or "F8F9FA" → "#F8F9FA" */
 export function normalizeHex(input: string): string | null {
     const cleaned = input.trim().replace(/^#/, "");
     if (/^[0-9A-Fa-f]{6}$/.test(cleaned)) {

@@ -1,7 +1,7 @@
 export type GamePhase = "playing" | "correct" | "wrong" | "gameover";
 
 export interface Color {
-    hex: string; // e.g. "#FF5733"
+    hex: string; // e.g. "#F8F9FA"
     r: number;
     g: number;
     b: number;

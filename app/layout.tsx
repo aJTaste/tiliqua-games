@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "色Guessr",
+  title: "IroGuessr",
   description: "表示された色のカラーコードを推測しましょう。",
 };
 

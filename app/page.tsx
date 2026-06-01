@@ -89,10 +89,10 @@ export default function HomePage() {
       {/* ヘッダー */}
       <header className="flex flex-col items-center gap-2">
         <p className="text-[9px] tracking-[0.5em] text-[#aaa] uppercase">
-          Colour Identification Test
+          16進数カラーコード
         </p>
         <h1 className="text-base tracking-[0.25em] text-[#1a1a1a] font-light">
-          色番号判定
+          IroGuesser
         </h1>
         <div className="w-8 h-px bg-[#ccc] mt-1" />
       </header>

@@ -57,7 +57,7 @@ export default function HexInput({ onSubmit, disabled }: Props) {
                         value={value.replace(/^#/, "")}
                         onChange={handleChange}
                         disabled={disabled}
-                        placeholder="FF5733"
+                        placeholder="F8F9FA"
                         maxLength={6}
                         className="
               w-36 text-center font-mono-game text-2xl font-light
@@ -67,11 +67,11 @@ export default function HexInput({ onSubmit, disabled }: Props) {
               disabled:opacity-30 disabled:cursor-not-allowed
               placeholder:text-[#ccc]
             "
-                        aria-label="HEXカラーコードを入力"
+                        aria-label="HEXコードを入力"
                     />
                 </div>
                 <span className="text-[10px] tracking-[0.2em] text-[#bbb] uppercase mt-1">
-                    例）FF5733 または #1A2B3C
+                    例）F8F9FA
                 </span>
             </div>
 
