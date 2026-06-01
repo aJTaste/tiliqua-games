@@ -35,4 +35,4 @@ export default function ColorDisplay({ color, revealed }: Props) {
             </div>
         </div>
     );
-}
+}　

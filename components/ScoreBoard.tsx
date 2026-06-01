@@ -14,9 +14,9 @@ interface Props {
 }
 
 export default function ScoreBoard({
-    score,
-    round,
-    maxRounds,
+    score = 0,
+    round = 1,
+    maxRounds = 5,
     lastResult,
     phase,
     onNext,
@@ -119,7 +119,7 @@ export default function ScoreBoard({
               active:scale-95 transition-all duration-200 mt-1
             "
                     >
-                        次の色へ
+                        次に進む
                     </button>
                 </div>
             )}
