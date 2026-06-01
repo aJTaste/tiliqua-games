@@ -46,8 +46,7 @@ export default function HexInput({ onSubmit, disabled }: Props) {
                 : "border-[#c0392b]";
 
     return (
-        <form onSubmit={handleSubmit} className="flex flex-col items-center gap-8">
-            {/* 入力エリア */}
+        <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4">
             <div className="flex flex-col items-center gap-1">
                 <div className={`flex items-center border-b ${underlineColor} pb-2 transition-colors duration-200`}>
                     <span className="font-mono-game text-2xl font-light text-[#bbb] mr-1">#</span>
@@ -70,17 +69,16 @@ export default function HexInput({ onSubmit, disabled }: Props) {
                         aria-label="HEXコードを入力"
                     />
                 </div>
-                <span className="text-[10px] tracking-[0.2em] text-[#bbb] uppercase mt-1">
+                <span className="text-[10px] tracking-[0.2em] text-[#bbb] uppercase">
                     例）F8F9FA
                 </span>
             </div>
 
-            {/* 送信ボタン */}
             <button
                 type="submit"
                 disabled={disabled || !isValid}
                 className="
-          w-40 py-3 border border-[#1a1a1a] text-[#1a1a1a]
+          w-40 py-2.5 border border-[#1a1a1a] text-[#1a1a1a]
           text-xs tracking-[0.3em] uppercase
           hover:bg-[#1a1a1a] hover:text-[#F8F9FA]
           active:scale-95

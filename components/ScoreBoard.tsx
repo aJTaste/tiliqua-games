@@ -25,10 +25,10 @@ export default function ScoreBoard({
     const rank = lastResult ? getRank(lastResult.diff) : null;
 
     return (
-        <div className="flex flex-col items-center gap-6 w-full max-w-xs">
+        <div className="flex flex-col items-center gap-2 w-full max-w-xs">
 
             {/* ラウンド・スコア */}
-            <div className="w-full flex justify-between items-end border-b border-[#e0e0e0] pb-3">
+            <div className="w-full flex justify-between items-end border-b border-[#e0e0e0] pb-2">
                 <div className="flex flex-col gap-0.5">
                     <span className="text-[9px] tracking-[0.3em] text-[#aaa] uppercase">Round</span>
                     <span className="font-mono-game text-base font-light text-[#1a1a1a]">
@@ -60,45 +60,35 @@ export default function ScoreBoard({
 
             {/* 判定結果 */}
             {lastResult && phase !== "playing" && phase !== "gameover" && (
-                <div className="w-full flex flex-col gap-5">
+                <div className="w-full flex flex-col gap-2 pt-1">
                     {/* ランク */}
-                    <div className="text-center">
-                        <span className="text-[9px] tracking-[0.3em] text-[#aaa] uppercase block mb-1">Result</span>
-                        <span className="text-sm tracking-[0.15em]" style={{ color: rank?.color }}>
-                            {rank?.label}
-                        </span>
-                    </div>
+                    <p className="text-center text-xs tracking-[0.12em]" style={{ color: rank?.color }}>
+                        {rank?.label}
+                    </p>
 
                     {/* 色比較 */}
                     <div className="flex items-stretch gap-4 justify-center">
-                        {/* あなたの色 */}
-                        <div className="flex flex-col items-center gap-2">
+                        <div className="flex flex-col items-center gap-1">
                             <div
-                                className="w-14 h-14 border border-black/8"
+                                className="w-10 h-10 border border-black/8"
                                 style={{ backgroundColor: lastResult.userHex }}
                             />
-                            <span className="text-[9px] tracking-[0.2em] text-[#aaa] uppercase">あなた</span>
-                            <span className="font-mono-game text-[10px] text-[#666]">{lastResult.userHex}</span>
+                            <span className="text-[8px] tracking-[0.2em] text-[#aaa] uppercase">あなた</span>
+                            <span className="font-mono-game text-[9px] text-[#666]">{lastResult.userHex}</span>
                         </div>
-
-                        {/* 区切り線 */}
-                        <div className="flex items-center">
-                            <div className="h-full w-px bg-[#e0e0e0]" />
-                        </div>
-
-                        {/* 正解の色 */}
-                        <div className="flex flex-col items-center gap-2">
+                        <div className="w-px bg-[#e0e0e0]" />
+                        <div className="flex flex-col items-center gap-1">
                             <div
-                                className="w-14 h-14 border border-black/8"
+                                className="w-10 h-10 border border-black/8"
                                 style={{ backgroundColor: lastResult.actualHex }}
                             />
-                            <span className="text-[9px] tracking-[0.2em] text-[#aaa] uppercase">正解</span>
-                            <span className="font-mono-game text-[10px] text-[#666]">{lastResult.actualHex}</span>
+                            <span className="text-[8px] tracking-[0.2em] text-[#aaa] uppercase">正解</span>
+                            <span className="font-mono-game text-[9px] text-[#666]">{lastResult.actualHex}</span>
                         </div>
                     </div>
 
                     {/* 数値詳細 */}
-                    <div className="w-full border-t border-[#e0e0e0] pt-4 flex flex-col gap-2">
+                    <div className="w-full border-t border-[#e0e0e0] pt-2 flex flex-col gap-1.5">
                         <div className="flex justify-between text-[10px]">
                             <span className="tracking-[0.2em] text-[#aaa] uppercase">誤差</span>
                             <span className="font-mono-game text-[#555]">{lastResult.diff}%</span>
@@ -113,10 +103,10 @@ export default function ScoreBoard({
                     <button
                         onClick={onNext}
                         className="
-              w-full py-3 border border-[#1a1a1a] text-[#1a1a1a]
+              w-full py-2.5 border border-[#1a1a1a] text-[#1a1a1a]
               text-[10px] tracking-[0.3em] uppercase
               hover:bg-[#1a1a1a] hover:text-[#F8F9FA]
-              active:scale-95 transition-all duration-200 mt-1
+              active:scale-95 transition-all duration-200
             "
                     >
                         次に進む
@@ -126,18 +116,18 @@ export default function ScoreBoard({
 
             {/* ゲーム終了 */}
             {phase === "gameover" && (
-                <div className="w-full flex flex-col items-center gap-6 pt-2">
-                    <div className="w-full border-t border-b border-[#e0e0e0] py-6 flex flex-col items-center gap-2">
-                        <span className="text-[9px] tracking-[0.3em] text-[#aaa] uppercase">Final Score</span>
+                <div className="w-full flex flex-col items-center gap-3 pt-1">
+                    <div className="w-full border-t border-b border-[#e0e0e0] py-4 flex flex-col items-center gap-1">
+                        <span className="text-[8px] tracking-[0.3em] text-[#aaa] uppercase">Final Score</span>
                         <span className="font-mono-game text-3xl font-light text-[#1a1a1a]">
                             {score.toLocaleString()}
                         </span>
-                        <span className="text-[10px] tracking-[0.15em] text-[#aaa]">points</span>
+                        <span className="text-[9px] tracking-[0.15em] text-[#aaa]">points</span>
                     </div>
                     <button
                         onClick={onRestart}
                         className="
-              w-full py-3 border border-[#1a1a1a] text-[#1a1a1a]
+              w-full py-2.5 border border-[#1a1a1a] text-[#1a1a1a]
               text-[10px] tracking-[0.3em] uppercase
               hover:bg-[#1a1a1a] hover:text-[#F8F9FA]
               active:scale-95 transition-all duration-200

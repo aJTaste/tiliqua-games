@@ -83,43 +83,43 @@ export default function HomePage() {
 
   return (
     <main
-      className="min-h-screen flex flex-col items-center justify-start pt-16 pb-20 px-6 gap-12"
-      style={{ backgroundColor: "#F8F9FA" }}
+      className="flex flex-col items-center px-6 py-4"
+      style={{ height: "100dvh", backgroundColor: "#F8F9FA" }}
     >
       {/* ヘッダー */}
-      <header className="flex flex-col items-center gap-2">
-        <p className="text-[9px] tracking-[0.5em] text-[#aaa] uppercase">
+      <header className="flex-shrink-0 flex flex-col items-center gap-1">
+        <p className="text-[8px] tracking-[0.5em] text-[#aaa] uppercase">
           16進数カラーコード
         </p>
-        <h1 className="text-base tracking-[0.25em] text-[#1a1a1a] font-light">
+        <h1 className="text-sm tracking-[0.25em] text-[#1a1a1a] font-light">
           IroGuesser
         </h1>
-        <div className="w-8 h-px bg-[#ccc] mt-1" />
+        <div className="w-8 h-px bg-[#ccc]" />
       </header>
 
-      {/* 色表示 */}
-      <ColorDisplay color={state.currentColor} revealed={revealed} />
+      {/* メインコンテンツ */}
+      <div className="flex-1 flex flex-col items-center justify-center gap-4 w-full max-w-xs">
+        <ColorDisplay color={state.currentColor} revealed={revealed} />
 
-      {/* 入力フォーム */}
-      {state.phase === "playing" && (
-        <HexInput onSubmit={handleAnswer} disabled={false} />
-      )}
+        {state.phase === "playing" && (
+          <HexInput onSubmit={handleAnswer} disabled={false} />
+        )}
 
-      {/* スコア・結果 */}
-      <ScoreBoard
-        score={state.score}
-        round={state.round}
-        maxRounds={MAX_ROUNDS}
-        lastResult={state.lastResult}
-        phase={state.phase}
-        onNext={handleNext}
-        onRestart={handleRestart}
-      />
+        <ScoreBoard
+          score={state.score}
+          round={state.round}
+          maxRounds={MAX_ROUNDS}
+          lastResult={state.lastResult}
+          phase={state.phase}
+          onNext={handleNext}
+          onRestart={handleRestart}
+        />
+      </div>
 
       {/* フッター */}
-      <footer className="mt-auto pt-8">
-        <p className="text-[9px] tracking-[0.3em] text-[#ccc] uppercase text-center">
-          Created by あじとかげ |{" "}
+      <footer className="flex-shrink-0">
+        <p className="text-[8px] tracking-[0.3em] text-[#ccc] uppercase text-center">
+          Created by あじとかげ
         </p>
       </footer>
     </main>
