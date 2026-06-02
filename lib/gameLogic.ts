@@ -1,6 +1,5 @@
-import { Color, AnswerResult } from "./types";
+import { Color, AnswerResult, RankInfo } from "./types";
 
-/** ランダムな色を生成する */
 export function generateRandomColor(): Color {
     const r = Math.floor(Math.random() * 256);
     const g = Math.floor(Math.random() * 256);
@@ -9,91 +8,82 @@ export function generateRandomColor(): Color {
     return { hex, r, g, b };
 }
 
-/** 数値を2桁16進数に変換 */
 function toHex(n: number): string {
     return n.toString(16).padStart(2, "0");
 }
 
-/** ユーザーの回答を評価する */
-export function evaluateAnswer(
-    userInput: string,
-    actual: Color
-): AnswerResult {
-    const normalized = normalizeHex(userInput);
-
-    if (!normalized) {
-        return {
-            correct: false,
-            userHex: userInput,
-            actualHex: actual.hex,
-            diff: 100,
-            points: 0,
-        };
-    }
-
-    const userColor = parseHex(normalized);
-    const diff = calcDiff(userColor, actual);
-    const points = calcPoints(diff);
-    const correct = diff <= 10; // 差10%以内で正解とみなす
-
-    return {
-        correct,
-        userHex: normalized.toUpperCase(),
-        actualHex: actual.hex,
-        diff,
-        points,
-    };
+/** sRGB [0,255] → 線形光量 [0,1]（ガンマ補正の逆） */
+function srgbToLinear(c: number): number {
+    const s = c / 255;
+    return s <= 0.04045 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
 }
 
-/** 入力を正規化: "#F8F9FA" or "F8F9FA" → "#F8F9FA" */
+/** RGB [0,255] → OKLAB [L, a, b] */
+function rgbToOklab(r: number, g: number, b: number): [number, number, number] {
+    const rl = srgbToLinear(r);
+    const gl = srgbToLinear(g);
+    const bl = srgbToLinear(b);
+
+    // 線形sRGB → LMS（cube root前）
+    const l_ = Math.cbrt(0.4122214708 * rl + 0.5363325363 * gl + 0.0514459929 * bl);
+    const m_ = Math.cbrt(0.2119034982 * rl + 0.6806995451 * gl + 0.1073969566 * bl);
+    const s_ = Math.cbrt(0.0883024619 * rl + 0.2817188376 * gl + 0.6299787005 * bl);
+
+    return [
+        0.2104542553 * l_ + 0.7936177850 * m_ - 0.0040720468 * s_,
+        1.9779984951 * l_ - 2.4285922050 * m_ + 0.4505937099 * s_,
+        0.0259040371 * l_ + 0.7827717662 * m_ - 0.8086757660 * s_,
+    ];
+}
+
+/** OKLAB ΔE を 0–100 スケールで返す（100 = 最大知覚差） */
+function calcDeltaE(a: Color, b: Color): number {
+    const [L1, a1, b1] = rgbToOklab(a.r, a.g, a.b);
+    const [L2, a2, b2] = rgbToOklab(b.r, b.g, b.b);
+    const dE = Math.sqrt((L1 - L2) ** 2 + (a1 - a2) ** 2 + (b1 - b2) ** 2);
+    // OKLAB の最大ΔEは概ね1.0（黒↔白）なので100倍でスケール
+    return Math.min(Math.round(dE * 100), 100);
+}
+
+/** 入力を正規化 */
 export function normalizeHex(input: string): string | null {
     const cleaned = input.trim().replace(/^#/, "");
     if (/^[0-9A-Fa-f]{6}$/.test(cleaned)) {
         return `#${cleaned.toUpperCase()}`;
     }
-    // 3桁を6桁に展開
     if (/^[0-9A-Fa-f]{3}$/.test(cleaned)) {
-        const expanded = cleaned
-            .split("")
-            .map((c) => c + c)
-            .join("");
+        const expanded = cleaned.split("").map((c) => c + c).join("");
         return `#${expanded.toUpperCase()}`;
     }
     return null;
 }
 
-/** 16進数文字列をRGBに変換 */
-function parseHex(hex: string): Color {
+function hexToColor(hex: string): Color {
     const r = parseInt(hex.slice(1, 3), 16);
     const g = parseInt(hex.slice(3, 5), 16);
     const b = parseInt(hex.slice(5, 7), 16);
-    return { hex, r, g, b };
+    return { hex: hex.toUpperCase(), r, g, b };
 }
 
-/** RGB差の大きさを0〜100で返す */
-function calcDiff(a: Color, b: Color): number {
-    const dr = Math.abs(a.r - b.r);
-    const dg = Math.abs(a.g - b.g);
-    const db = Math.abs(a.b - b.b);
-    // 最大差は255*3=765。0〜100にスケール
-    return Math.round(((dr + dg + db) / (255 * 3)) * 100);
+export function getRank(deltaE: number): RankInfo {
+    if (deltaE <= 3) return { grade: "S", label: "完璧な色感覚です。", color: "#22c55e" };
+    if (deltaE <= 7) return { grade: "A+", label: "非常に近い！", color: "#84cc16" };
+    if (deltaE <= 12) return { grade: "A", label: "良い精度です。", color: "#eab308" };
+    if (deltaE <= 20) return { grade: "B", label: "まずまずです。", color: "#f97316" };
+    if (deltaE <= 35) return { grade: "C", label: "少し離れています。", color: "#ef4444" };
+    return { grade: "D", label: "かけ離れています。", color: "#dc2626" };
 }
 
-/** 差に応じたポイントを計算 (最大1000点) */
-function calcPoints(diff: number): number {
-    if (diff > 50) return 0;
-    return Math.round(1000 * Math.pow(1 - diff / 50, 2));
-}
+export function evaluateAnswer(
+    userInput: string,
+    actual: Color
+): AnswerResult | null {
+    const normalized = normalizeHex(userInput);
+    if (!normalized) return null;
 
-/** ランクを返す */
-export function getRank(diff: number): {
-    label: string;
-    color: string;
-} {
-    if (diff <= 2) return { label: "[S] 非常に素晴らしい結果です。", color: "#22c55e" };
-    if (diff <= 5) return { label: "[A+] 素晴らしい結果です。", color: "#84cc16" };
-    if (diff <= 10) return { label: "[A] 良い結果です。", color: "#eab308" };
-    if (diff <= 20) return { label: "[B] 悪くない結果です。", color: "#f97316" };
-    if (diff <= 35) return { label: "[C] 少し離れています。", color: "#ef4444" };
-    return { label: "[D] かけ離れています。", color: "#dc2626" };
+    const userColor = hexToColor(normalized);
+    const deltaE = calcDeltaE(userColor, actual);
+    const rank = getRank(deltaE);
+
+    return { userHex: normalized, actualHex: actual.hex, userColor, actualColor: actual, deltaE, rank };
 }

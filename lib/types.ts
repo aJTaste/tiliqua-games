@@ -1,26 +1,30 @@
-export type GamePhase = "playing" | "correct" | "wrong" | "gameover";
+export type GamePhase = "playing" | "answered";
 
 export interface Color {
-    hex: string; // e.g. "#F8F9FA"
+    hex: string;
     r: number;
     g: number;
     b: number;
 }
 
-export interface GameState {
-    phase: GamePhase;
-    currentColor: Color;
-    userInput: string;
-    score: number;
-    round: number;
-    maxRounds: number;
-    lastResult: AnswerResult | null;
+export interface RankInfo {
+    grade: string;
+    label: string;
+    color: string;
 }
 
 export interface AnswerResult {
-    correct: boolean;
     userHex: string;
     actualHex: string;
-    diff: number; // 0〜100 (差の大きさ。低いほど近い)
-    points: number;
+    userColor: Color;
+    actualColor: Color;
+    deltaE: number; // OKLAB ΔE × 100, 0–100
+    rank: RankInfo;
+}
+
+export interface GameState {
+    phase: GamePhase;
+    currentColor: Color;
+    streak: number;
+    lastResult: AnswerResult | null;
 }
