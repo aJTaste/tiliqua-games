@@ -1,4 +1,4 @@
-import { Color, AnswerResult, RankInfo } from "../types";
+import { Color, AnswerResult, RankInfo } from "@/lib/iro-guesser/types";
 
 export function generateRandomColor(): Color {
     const r = Math.floor(Math.random() * 256);
