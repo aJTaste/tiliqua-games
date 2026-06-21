@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 export default function Page() {
   const [html, setHtml] = useState("");
-  const [isRealtime, setIsRealtime] = useState(false);
+  const [isRealtime, setIsRealtime] = useState(true);
   const [previewHtml, setPreviewHtml] = useState("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -35,6 +36,10 @@ export default function Page() {
     setIsRealtime((prev) => !prev);
   }
 
+  const handleFileButtonClick = () => {
+    fileInputRef.current?.click();
+  };
+
   return (
     <div className="flex flex-col h-screen">
       <header className="flex-shrink-0 flex items-center px-4 h-10 border-b border-[#e8e8e8] bg-[#F8F9FA]">
@@ -42,6 +47,19 @@ export default function Page() {
           HTML Preview
         </p>
         <div className="flex items-center gap-3 ml-auto">
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept=".html"
+            onChange={handleFileUpload}
+            className="hidden"
+          />
+          <button
+            onClick={handleFileButtonClick}
+            className="text-xs tracking-[0.2em] border border-[#1a1a1a] text-[#1a1a1a] px-3 py-1 hover:bg-[#1a1a1a] hover:text-[#F8F9FA] transition-all duration-200 uppercase"
+          >
+            ファイルを選択
+          </button>
           <button
             onClick={handleToggleRealtime}
             className="text-xs tracking-[0.2em] px-3 py-1 border transition-all duration-200 uppercase"
@@ -53,11 +71,6 @@ export default function Page() {
           >
             リアルタイム反映
           </button>
-          <input
-            type="file"
-            accept=".html"
-            onChange={handleFileUpload}
-          />
           <button
             onClick={handleRun}
             disabled={isRealtime}
