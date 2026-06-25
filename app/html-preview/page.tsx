@@ -43,7 +43,6 @@ export default function Page() {
 
   return (
     <div className="flex flex-col h-screen">
-
       {/* hidden inputはここに1つだけ置く */}
       <input
         ref={fileInputRef}
@@ -64,7 +63,7 @@ export default function Page() {
             onClick={handleFileButtonClick}
             className="text-xs tracking-[0.2em] border border-[#1a1a1a] text-[#1a1a1a] px-3 py-1 hover:bg-[#1a1a1a] hover:text-[#F8F9FA] transition-all duration-200 uppercase"
           >
-            ファイルを選択
+            ファイル
           </button>
           <button
             onClick={handleToggleRealtime}
@@ -75,7 +74,7 @@ export default function Page() {
               backgroundColor: isRealtime ? "#1a1a1a" : "transparent",
             }}
           >
-            リアルタイムで反映
+            リアルタイム
           </button>
           <button
             onClick={handleRun}
@@ -89,7 +88,7 @@ export default function Page() {
             disabled={!html}
             className="text-xs tracking-[0.2em] text-[#1a1a1a] border border-[#1a1a1a] px-3 py-1 hover:bg-[#1a1a1a] hover:text-[#F8F9FA] transition-all duration-200 uppercase disabled:opacity-20"
           >
-            新しいタブでプレビューを開く
+            新しいタブで開く
           </button>
         </div>
 
@@ -154,7 +153,6 @@ export default function Page() {
 
       {/* モバイル：タブ切り替え（sm未満で表示） */}
       <div className="flex sm:hidden flex-1 flex-col overflow-hidden">
-
         {/* タブバー */}
         <div className="flex flex-shrink-0 border-b border-[#e8e8e8]">
           <button
@@ -162,7 +160,10 @@ export default function Page() {
             className="flex-1 py-2 text-[10px] tracking-[0.3em] uppercase transition-colors"
             style={{
               color: activeTab === "editor" ? "#1a1a1a" : "#bbb",
-              borderBottom: activeTab === "editor" ? "2px solid #1a1a1a" : "2px solid transparent",
+              borderBottom:
+                activeTab === "editor"
+                  ? "2px solid #1a1a1a"
+                  : "2px solid transparent",
             }}
           >
             エディター
@@ -172,7 +173,10 @@ export default function Page() {
             className="flex-1 py-2 text-[10px] tracking-[0.3em] uppercase transition-colors"
             style={{
               color: activeTab === "preview" ? "#1a1a1a" : "#bbb",
-              borderBottom: activeTab === "preview" ? "2px solid #1a1a1a" : "2px solid transparent",
+              borderBottom:
+                activeTab === "preview"
+                  ? "2px solid #1a1a1a"
+                  : "2px solid transparent",
             }}
           >
             プレビュー
@@ -201,7 +205,6 @@ export default function Page() {
           )}
         </div>
       </div>
-
     </div>
   );
 }
