@@ -1,7 +1,9 @@
+// components/iro-guesser/HexInput.tsx
 "use client";
 
 import { useState, useRef, useEffect } from "react";
 import { normalizeHex } from "@/lib/iro-guesser/gameLogic";
+import Button from "@/components/ui/Button";
 
 interface Props {
   onSubmit: (value: string) => void;
@@ -78,20 +80,13 @@ export default function HexInput({ onSubmit, disabled }: Props) {
         </span>
       </div>
 
-      <button
+      <Button
         type="submit"
         disabled={disabled || !isValid}
-        className="
-          w-40 py-2.5 border border-[#1a1a1a] text-[#1a1a1a]
-          text-xs tracking-[0.3em] uppercase
-          hover:bg-[#1a1a1a] hover:text-[#F8F9FA]
-          active:scale-95
-          disabled:opacity-20 disabled:cursor-not-allowed
-          transition-all duration-200
-        "
+        className="w-40 py-2.5 text-xs tracking-[0.3em]"
       >
         判定する
-      </button>
+      </Button>
     </form>
   );
 }

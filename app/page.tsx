@@ -1,5 +1,6 @@
 // app/page.tsx
 import Link from "next/link";
+import PageFooter from "@/components/ui/PageFooter";
 
 const games = [
   { label: "IroGuesser", href: "/iro-guesser", available: true },
@@ -101,12 +102,8 @@ export default function Page() {
         </section>
       </div>
 
-      <div className="w-full max-w-xs border-t border-[#e8e8e8]" />
-      <footer className="py-3">
-        <p className="text-[7px] tracking-[0.3em] text-[#ccc] uppercase text-center">
-          Created by あじとかげ
-        </p>
-      </footer>
+      {/* PageFooter に統一（py-3 → py-2 も含めて揃える） */}
+      <PageFooter />
     </main>
   );
 }

@@ -1,6 +1,8 @@
+// components/iro-guesser/ResultPanel.tsx
 "use client";
 
 import { AnswerResult } from "@/lib/iro-guesser/types";
+import Button from "@/components/ui/Button";
 
 interface Props {
   result: AnswerResult;
@@ -32,12 +34,10 @@ function ChannelBar({
         {label}
       </span>
       <div className="flex-1 relative h-1.5 bg-[#e8e8e8]">
-        {/* 正解バー */}
         <div
           className="absolute left-0 top-0 h-full"
           style={{ width: `${actualPct}%`, backgroundColor: barColor }}
         />
-        {/* ユーザー位置マーカー（縦線） */}
         <div
           className="absolute top-1/2 w-px h-3"
           style={{
@@ -95,7 +95,6 @@ export default function ResultPanel({ result, onNext }: Props) {
 
   return (
     <div className="w-full flex flex-col gap-3">
-      {/* 色比較 + ランク */}
       <div className="flex items-center justify-center gap-5">
         <div className="flex flex-col items-center gap-1">
           <div
@@ -145,7 +144,6 @@ export default function ResultPanel({ result, onNext }: Props) {
 
       <div className="w-full border-t border-[#ebebeb]" />
 
-      {/* 色成分バー */}
       <div className="flex flex-col gap-1.5 w-full">
         <div className="flex justify-between items-center">
           <span className="text-[7px] tracking-[0.25em] text-[#bbb] uppercase">
@@ -163,17 +161,12 @@ export default function ResultPanel({ result, onNext }: Props) {
 
       <div className="w-full border-t border-[#ebebeb]" />
 
-      <button
+      <Button
         onClick={onNext}
-        className="
-                    w-full py-2.5 border border-[#1a1a1a] text-[#1a1a1a]
-                    text-[9px] tracking-[0.3em] uppercase
-                    hover:bg-[#1a1a1a] hover:text-[#F8F9FA]
-                    active:scale-95 transition-all duration-200
-                "
+        className="w-full py-2.5 text-[9px] tracking-[0.3em]"
       >
         次の色へ
-      </button>
+      </Button>
     </div>
   );
 }
