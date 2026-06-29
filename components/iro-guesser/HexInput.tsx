@@ -4,61 +4,65 @@ import { useState, useRef, useEffect } from "react";
 import { normalizeHex } from "@/lib/iro-guesser/gameLogic";
 
 interface Props {
-    onSubmit: (value: string) => void;
-    disabled: boolean;
+  onSubmit: (value: string) => void;
+  disabled: boolean;
 }
 
 export default function HexInput({ onSubmit, disabled }: Props) {
-    const [value, setValue] = useState("");
-    const [isValid, setIsValid] = useState<boolean | null>(null);
-    const inputRef = useRef<HTMLInputElement>(null);
+  const [value, setValue] = useState("");
+  const [isValid, setIsValid] = useState<boolean | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-    useEffect(() => {
-        if (!disabled) {
-            setValue("");
-            setIsValid(null);
-            inputRef.current?.focus();
-        }
-    }, [disabled]);
+  useEffect(() => {
+    if (!disabled) {
+      setValue("");
+      setIsValid(null);
+      inputRef.current?.focus();
+    }
+  }, [disabled]);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const raw = e.target.value.replace(/[^0-9A-Fa-f#]/g, "").slice(0, 7);
-        setValue(raw);
-        if (raw.replace(/^#/, "").length >= 3) {
-            setIsValid(normalizeHex(raw) !== null);
-        } else {
-            setIsValid(null);
-        }
-    };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const raw = e.target.value.replace(/[^0-9A-Fa-f#]/g, "").slice(0, 7);
+    setValue(raw);
+    if (raw.replace(/^#/, "").length >= 3) {
+      setIsValid(normalizeHex(raw) !== null);
+    } else {
+      setIsValid(null);
+    }
+  };
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!disabled && normalizeHex(value)) {
-            onSubmit(value);
-        }
-    };
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!disabled && normalizeHex(value)) {
+      onSubmit(value);
+    }
+  };
 
-    const underlineColor =
-        isValid === null
-            ? "border-[#ccc]"
-            : isValid
-                ? "border-[#1a1a1a]"
-                : "border-[#c0392b]";
+  const underlineColor =
+    isValid === null
+      ? "border-[#ccc]"
+      : isValid
+        ? "border-[#1a1a1a]"
+        : "border-[#c0392b]";
 
-    return (
-        <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4">
-            <div className="flex flex-col items-center gap-1">
-                <div className={`flex items-center border-b ${underlineColor} pb-2 transition-colors duration-200`}>
-                    <span className="font-mono-game text-2xl font-light text-[#bbb] mr-1">#</span>
-                    <input
-                        ref={inputRef}
-                        type="text"
-                        value={value.replace(/^#/, "")}
-                        onChange={handleChange}
-                        disabled={disabled}
-                        placeholder="F8F9FA"
-                        maxLength={6}
-                        className="
+  return (
+    <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4">
+      <div className="flex flex-col items-center gap-1">
+        <div
+          className={`flex items-center border-b ${underlineColor} pb-2 transition-colors duration-200`}
+        >
+          <span className="font-mono-game text-2xl font-light text-[#bbb] mr-1">
+            #
+          </span>
+          <input
+            ref={inputRef}
+            type="text"
+            value={value.replace(/^#/, "")}
+            onChange={handleChange}
+            disabled={disabled}
+            placeholder="F8F9FA"
+            maxLength={6}
+            className="
               w-36 text-center font-mono-game text-2xl font-light
               tracking-[0.25em] uppercase
               bg-transparent text-[#1a1a1a]
@@ -66,18 +70,18 @@ export default function HexInput({ onSubmit, disabled }: Props) {
               disabled:opacity-30 disabled:cursor-not-allowed
               placeholder:text-[#ccc]
             "
-                        aria-label="HEXコードを入力"
-                    />
-                </div>
-                <span className="text-[10px] tracking-[0.2em] text-[#bbb] uppercase">
-                    例）F8F9FA
-                </span>
-            </div>
+            aria-label="HEXコードを入力"
+          />
+        </div>
+        <span className="text-[10px] tracking-[0.2em] text-[#bbb] uppercase">
+          例）F8F9FA
+        </span>
+      </div>
 
-            <button
-                type="submit"
-                disabled={disabled || !isValid}
-                className="
+      <button
+        type="submit"
+        disabled={disabled || !isValid}
+        className="
           w-40 py-2.5 border border-[#1a1a1a] text-[#1a1a1a]
           text-xs tracking-[0.3em] uppercase
           hover:bg-[#1a1a1a] hover:text-[#F8F9FA]
@@ -85,9 +89,9 @@ export default function HexInput({ onSubmit, disabled }: Props) {
           disabled:opacity-20 disabled:cursor-not-allowed
           transition-all duration-200
         "
-            >
-                判定する
-            </button>
-        </form>
-    );
+      >
+        判定する
+      </button>
+    </form>
+  );
 }
