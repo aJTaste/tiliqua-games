@@ -69,7 +69,7 @@ export default function HomePage() {
       <header className="flex-shrink-0 w-full max-w-xs flex justify-between items-end px-1 pt-4 pb-3">
         <div className="flex flex-col gap-0.5">
           <p className="text-[7px] tracking-[0.5em] text-[#bbb] uppercase">
-            16進数カラーコード
+            Games
           </p>
           <h1 className="text-xs tracking-[0.25em] text-[#1a1a1a] font-light">
             IroGuesser

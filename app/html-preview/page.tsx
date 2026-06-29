@@ -42,8 +42,8 @@ export default function Page() {
   };
 
   return (
-    <div className="flex flex-col h-screen">
-      {/* hidden inputはここに1つだけ置く */}
+    // ↓ h-screen → h-[100dvh]
+    <div className="flex flex-col h-[100dvh]">
       <input
         ref={fileInputRef}
         type="file"
@@ -52,10 +52,17 @@ export default function Page() {
         className="hidden"
       />
 
-      <header className="flex-shrink-0 flex items-center px-4 h-10 border-b border-[#e8e8e8] bg-[#F8F9FA]">
-        <p className="text-xs tracking-[0.3em] text-[#1a1a1a] font-light uppercase">
-          HTML Preview
-        </p>
+      {/* ↓ h-10 → h-14（2行タイトルを収めるため） */}
+      <header className="flex-shrink-0 flex items-center px-4 h-14 border-b border-[#e8e8e8] bg-[#F8F9FA]">
+        {/* ↓ IroGuesser・hubと同じ「ラベル + タイトル」2行構造に */}
+        <div className="flex flex-col gap-0.5">
+          <p className="text-[7px] tracking-[0.5em] text-[#bbb] uppercase">
+            Tools
+          </p>
+          <h1 className="text-xs tracking-[0.25em] text-[#1a1a1a] font-light">
+            HTML Preview
+          </h1>
+        </div>
 
         {/* デスクトップ用ボタン群（sm以上で表示） */}
         <div className="hidden sm:flex items-center gap-3 ml-auto">
@@ -76,10 +83,11 @@ export default function Page() {
           >
             リアルタイム
           </button>
+          {/* ↓ hover スタイルを追加 */}
           <button
             onClick={handleRun}
             disabled={isRealtime}
-            className="text-xs tracking-[0.2em] border border-[#1a1a1a] text-[#1a1a1a] px-3 py-1 transition-all duration-200 uppercase disabled:opacity-20 disabled:cursor-not-allowed"
+            className="text-xs tracking-[0.2em] border border-[#1a1a1a] text-[#1a1a1a] px-3 py-1 hover:bg-[#1a1a1a] hover:text-[#F8F9FA] transition-all duration-200 uppercase disabled:opacity-20 disabled:cursor-not-allowed"
           >
             実行
           </button>
@@ -93,16 +101,17 @@ export default function Page() {
         </div>
 
         {/* モバイル用ボタン群（sm未満で表示） */}
+        {/* ↓ 各ボタンに transition-all duration-200 を追加 */}
         <div className="flex sm:hidden items-center gap-2 ml-auto">
           <button
             onClick={handleFileButtonClick}
-            className="text-[10px] tracking-[0.1em] border border-[#1a1a1a] text-[#1a1a1a] px-2 py-1 uppercase whitespace-nowrap"
+            className="text-[10px] tracking-[0.1em] border border-[#1a1a1a] text-[#1a1a1a] px-2 py-1 uppercase whitespace-nowrap transition-all duration-200 hover:bg-[#1a1a1a] hover:text-[#F8F9FA]"
           >
             ファイル
           </button>
           <button
             onClick={handleToggleRealtime}
-            className="text-[10px] tracking-[0.1em] px-2 py-1 border uppercase whitespace-nowrap"
+            className="text-[10px] tracking-[0.1em] px-2 py-1 border uppercase whitespace-nowrap transition-all duration-200"
             style={{
               borderColor: "#1a1a1a",
               color: isRealtime ? "#F8F9FA" : "#1a1a1a",
@@ -114,21 +123,21 @@ export default function Page() {
           <button
             onClick={handleRun}
             disabled={isRealtime}
-            className="text-[10px] tracking-[0.1em] border border-[#1a1a1a] text-[#1a1a1a] px-2 py-1 uppercase disabled:opacity-20 disabled:cursor-not-allowed whitespace-nowrap"
+            className="text-[10px] tracking-[0.1em] border border-[#1a1a1a] text-[#1a1a1a] px-2 py-1 uppercase disabled:opacity-20 disabled:cursor-not-allowed whitespace-nowrap transition-all duration-200 hover:bg-[#1a1a1a] hover:text-[#F8F9FA]"
           >
             実行
           </button>
           <button
             onClick={handleOpenInNewTab}
             disabled={!html}
-            className="text-[10px] tracking-[0.1em] text-[#1a1a1a] border border-[#1a1a1a] px-2 py-1 uppercase disabled:opacity-20 whitespace-nowrap"
+            className="text-[10px] tracking-[0.1em] text-[#1a1a1a] border border-[#1a1a1a] px-2 py-1 uppercase disabled:opacity-20 whitespace-nowrap transition-all duration-200 hover:bg-[#1a1a1a] hover:text-[#F8F9FA]"
           >
             開く
           </button>
         </div>
       </header>
 
-      {/* デスクトップ：左右2カラム（sm以上で表示） */}
+      {/* 以下は変更なし */}
       <div className="hidden sm:flex flex-1 overflow-hidden">
         <div className="w-1/2 border-r border-[#e8e8e8]">
           <textarea
@@ -151,9 +160,7 @@ export default function Page() {
         </div>
       </div>
 
-      {/* モバイル：タブ切り替え（sm未満で表示） */}
       <div className="flex sm:hidden flex-1 flex-col overflow-hidden">
-        {/* タブバー */}
         <div className="flex flex-shrink-0 border-b border-[#e8e8e8]">
           <button
             onClick={() => setActiveTab("editor")}
@@ -183,7 +190,6 @@ export default function Page() {
           </button>
         </div>
 
-        {/* タブの中身 */}
         <div className="flex-1 overflow-hidden">
           {activeTab === "editor" ? (
             <textarea
