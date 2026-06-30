@@ -3,19 +3,19 @@ import Link from "next/link";
 import PageFooter from "@/components/ui/PageFooter";
 
 const games = [
-  { label: "IroGuesser", href: "/iro-guesser", available: true },
-  { label: "Pi to Polygon", href: "#", available: false },
-  { label: "OtoGuesser", href: "#", available: false },
-  { label: "R U File?", href: "#", available: false },
+  { label: "IroGuesser", href: "/iro-guesser", available: true }, //ランダムに表示される色の16進数からコードを推測するゲーム。
+  { label: "Pi to Polygon", href: "#", available: false }, //正しく入力された桁数の円周率に相当する正何角形を描画するゲーム。
+  { label: "OtoGuesser", href: "#", available: false }, //ランダムに流れる音の音程または周波数を推測するゲーム。
+  { label: "R U File?", href: "#", available: false }, //ctfのようなゲーム。
 ];
 
 const tools = [
-  { label: "HTML Preview", href: "/html-preview", available: true },
-  { label: "Hz変換", href: "#", available: false },
-  { label: "リポジトリツリーハウス", href: "#", available: false },
-  { label: "運ゲー", href: "#", available: false },
-  { label: "文章生成疑似AI", href: "#", available: false },
-  { label: "タイピングピアノ", href: "#", available: false },
+  { label: "HTML Preview", href: "/html-preview", available: true }, //HTMLコードを入力するとそのままプレビューできるツール。
+  { label: "Hz変換", href: "#", available: false }, //ピアノの音を選択してその音の周波数を表示するツール。
+  { label: "リポジトリツリーハウス", href: "#", available: false }, // リポジトリのurlを入力（またはユーザー名とリポジトリ名）することで瞬時にテキスト形式のツリーを出力するツール。
+  { label: "運ゲー", href: "#", available: false }, //あらゆる種類を設けた運ゲーツール。
+  { label: "文章生成疑似AI", href: "#", available: false }, //理論で長文を張り付けると、次に来る単語などの確率から勝手に適当な文章を生成する疑似aiツール。
+  { label: "タイピングピアノ", href: "#", available: false }, //キーボードでピアノの演奏ができる多機能ピアノツール。
 ];
 
 export default function Page() {
