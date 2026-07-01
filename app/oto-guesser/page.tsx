@@ -119,6 +119,12 @@ export default function Page() {
                 />
               )}
             </div>
+<Button
+  onClick={() => alert("C4って書いてあるだけだよ")}
+  className="text-xs py-1.5"
+>
+  C4
+</Button>
 
             <Button
               onClick={handleSubmit}
