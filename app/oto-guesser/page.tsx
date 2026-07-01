@@ -1,6 +1,8 @@
 // app/oto-guesser/page.tsx
 "use client";
 
+import { playTone } from "@/lib/oto-guesser/audio";
+
 import { useState, useCallback, useEffect } from "react";
 import { GameState } from "@/lib/oto-guesser/types";
 import {
@@ -120,7 +122,7 @@ export default function Page() {
               )}
             </div>
 <Button
-  onClick={() => alert("C4って書いてあるだけだよ")}
+  onClick={() => playTone(getNoteInfo(noteToMidi("C", 4)).freq)}
   className="text-xs py-1.5"
 >
   C4
