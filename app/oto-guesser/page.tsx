@@ -121,13 +121,6 @@ export default function Page() {
                 />
               )}
             </div>
-<Button
-  onClick={() => playTone(getNoteInfo(noteToMidi("C", 4)).freq)}
-  className="text-xs py-1.5"
->
-  C4
-</Button>
-
             <Button
               onClick={handleSubmit}
               className="w-40 py-2.5 text-xs tracking-[0.3em]"
