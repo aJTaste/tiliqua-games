@@ -2,18 +2,18 @@
 import { NoteName, NoteInfo, KeyData } from "@/lib/shared/types";
 
 export const NOTE_NAMES: NoteName[] = [
-  "C",
-  "C#",
-  "D",
-  "D#",
-  "E",
-  "F",
-  "F#",
-  "G",
-  "G#",
-  "A",
-  "A#",
-  "B",
+  "ド",
+  "ド#",
+  "レ",
+  "レ#",
+  "ミ",
+  "ファ",
+  "ファ#",
+  "ソ",
+  "ソ#",
+  "ラ",
+  "ラ#",
+  "シ",
 ];
 
 export const MIN_OCTAVE = 0;
