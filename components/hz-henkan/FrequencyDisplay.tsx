@@ -1,5 +1,5 @@
 // components/hz-henkan/FrequencyDisplay.tsx
-import { NoteInfo } from "@/lib/hz-henkan/types";
+import { NoteInfo } from "@/lib/shared/types";
 
 interface Props {
   note: NoteInfo;

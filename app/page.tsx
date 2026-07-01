@@ -5,7 +5,7 @@ import PageFooter from "@/components/ui/PageFooter";
 const games = [
   { label: "IroGuesser", href: "/iro-guesser", available: true }, //ランダムに表示される色の16進数からコードを推測するゲーム。
   { label: "Pi to Polygon", href: "#", available: false }, //正しく入力された桁数の円周率に相当する正何角形を描画するゲーム。
-  { label: "OtoGuesser", href: "#", available: false }, //ランダムに流れる音の音程または周波数を推測するゲーム。
+  { label: "OtoGuesser", href: "/oto-guesser", available: true }, //ランダムに流れる音の音程または周波数を推測するゲーム。
   { label: "R U File?", href: "#", available: false }, //ctfのようなゲーム。
 ];
 

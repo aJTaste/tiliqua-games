@@ -6,9 +6,9 @@ import CategoryTitle from "@/components/ui/CategoryTitle";
 import PageFooter from "@/components/ui/PageFooter";
 import Button from "@/components/ui/Button";
 import FrequencyDisplay from "@/components/hz-henkan/FrequencyDisplay";
-import PianoKeyboard from "@/components/hz-henkan/PianoKeyboard";
-import NoteSelector from "@/components/hz-henkan/NoteSelector";
-import { getNoteInfo, noteToMidi } from "@/lib/hz-henkan/noteLogic";
+import PianoKeyboard from "@/components/shared/PianoKeyboard";
+import NoteSelector from "@/components/shared/NoteSelector";
+import { getNoteInfo, noteToMidi } from "@/lib/shared/noteLogic";
 
 type Mode = "keyboard" | "button";
 

@@ -7,7 +7,7 @@ import {
   MAX_OCTAVE,
   noteToMidi,
   getNoteInfo,
-} from "@/lib/hz-henkan/noteLogic";
+} from "@/lib/shared/noteLogic";
 import Button from "@/components/ui/Button";
 
 interface Props {

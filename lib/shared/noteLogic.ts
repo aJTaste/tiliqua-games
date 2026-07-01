@@ -1,5 +1,5 @@
 // lib/hz-henkan/noteLogic.ts
-import { NoteName, NoteInfo, KeyData } from "@/lib/hz-henkan/types";
+import { NoteName, NoteInfo, KeyData } from "@/lib/shared/types";
 
 export const NOTE_NAMES: NoteName[] = [
   "C",

@@ -7,7 +7,7 @@ import {
   VISIBLE_WHITE_KEYS,
   TOTAL_WHITE_KEYS,
   WHITE_KEYS_PER_OCTAVE,
-} from "@/lib/hz-henkan/noteLogic";
+} from "@/lib/shared/noteLogic";
 
 interface Props {
   selectedMidi: number;
